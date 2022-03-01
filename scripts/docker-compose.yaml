@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  node:
+    image: node:16.13-alpine3.15
+    ports:
+      - "8000:8000"
+    
+    working_dir: /runproject
+    volumes:
+     - ./my_app:/runproject
+    # command: "tail -f /dev/null" # For debugging purposes
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm install
+        node server.js
+
+
+
+# NOTE: For your volumes to be mounted successfully make sure these directories are present respectively:
+# /my_app  - In your host PC
+# /runproject  -   In your container
+
+# This line:  working_dir: /runproject has already ensured that that folder is been created # automatically for us already inside the container.
